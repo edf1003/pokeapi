@@ -1,6 +1,21 @@
-<div>
-  <div>{{ pokemon.name }}</div>
-  <div>{{ pokemon.type }}</div>
-  <div>{{ pokemon.weight }}</div>
-  <div>{{ pokemon.height }}</div>
+<div
+  class="pokemon-card"
+  [ngClass]="'type-' + pokemon.types[0].type.name.toLowerCase()"
+>
+  <img src="{{ pokemon.sprites.front_default }}" alt="{{ pokemon.name }}" />
+  <div class="pokemon-name">{{ pokemon.name | capitalize }}</div>
+  <div class="pokemon-info">
+    <span
+      *ngFor="let type of pokemon.types; let i = index"
+      class="type-badge"
+      [ngClass]="'type-' + type.type.name.toLowerCase()"
+    >
+      {{ translateType(type.type.name) }}
+    </span>
+
+    <div class="pokemon-measure">
+      <i class="fa-solid fa-weight-hanging"></i> {{ pokemon.weight }} kg
+      <i class="fa-solid fa-arrows-up-down"></i> {{ pokemon.height }} m
+    </div>
+  </div>
 </div>

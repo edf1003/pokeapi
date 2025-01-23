@@ -1,4 +1,6 @@
-<h1>PokeApi</h1>
-<div *ngFor="let pokemon of pokemons">
-  <app-pokemon-card [pokemon]="pokemon" />
+<h1 class="title">PokeApi</h1>
+<div class="pokemon-grid">
+  <div *ngFor="let pokemon of pokemons" class="pokemon-item">
+    <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+  </div>
 </div>

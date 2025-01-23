@@ -1,0 +1,31 @@
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 16px;
+  justify-content: center;
+}
+
+/* Limitamos el número máximo de columnas por fila a 5, y los elementos se expanden si hay más espacio */
+@media (min-width: 800px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(3, 1fr); /* Máximo 5 elementos por fila */
+  }
+}
+
+@media (min-width: 1200px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(3, minmax(200px, 1fr));
+  }
+}
+
+.pokemon-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

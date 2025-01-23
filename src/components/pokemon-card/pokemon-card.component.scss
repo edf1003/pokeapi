@@ -1,0 +1,146 @@
+.pokemon-card {
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: #333;
+  text-align: center;
+  min-width: 150px;
+}
+
+.pokemon-name {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.pokemon-info {
+  font-size: 0.9em;
+  margin: 5px 0;
+}
+
+.pokemon-measure {
+  padding-top: 10px;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 2px;
+  border-radius: 10px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: black;
+  text-transform: capitalize;
+}
+
+/* Fondo de tipo suave (pastel) */
+.type-fire {
+  background-color: rgba(255, 69, 0, 0.1); /* Pastel */
+}
+.type-water {
+  background-color: rgba(0, 191, 255, 0.1); /* Pastel */
+}
+.type-grass {
+  background-color: rgba(50, 205, 50, 0.1); /* Pastel */
+}
+.type-electric {
+  background-color: rgba(255, 255, 0, 0.1); /* Pastel */
+}
+.type-psychic {
+  background-color: rgba(255, 105, 180, 0.1); /* Pastel */
+}
+.type-ice {
+  background-color: rgba(173, 216, 230, 0.1); /* Pastel */
+}
+.type-dragon {
+  background-color: rgba(72, 61, 139, 0.1); /* Pastel */
+}
+.type-dark {
+  background-color: rgba(47, 79, 79, 0.1); /* Pastel */
+}
+.type-fairy {
+  background-color: rgba(255, 182, 193, 0.1); /* Pastel */
+}
+.type-normal {
+  background-color: rgba(211, 211, 211, 0.1); /* Pastel */
+}
+.type-fighting {
+  background-color: rgba(139, 69, 19, 0.1); /* Pastel */
+}
+.type-flying {
+  background-color: rgba(135, 206, 250, 0.1); /* Pastel */
+}
+.type-poison {
+  background-color: rgba(148, 0, 211, 0.1); /* Pastel */
+}
+.type-ground {
+  background-color: rgba(210, 180, 140, 0.1); /* Pastel */
+}
+.type-rock {
+  background-color: rgba(160, 82, 45, 0.1); /* Pastel */
+}
+.type-bug {
+  background-color: rgba(154, 205, 50, 0.1); /* Pastel */
+}
+.type-ghost {
+  background-color: rgba(75, 0, 130, 0.1); /* Pastel */
+}
+.type-steel {
+  background-color: rgba(169, 169, 169, 0.1); /* Pastel */
+}
+
+/* Badges más intensos */
+.type-fire.badge {
+  background-color: #ff4500;
+}
+.type-water.badge {
+  background-color: #00bfff;
+}
+.type-grass.badge {
+  background-color: #32cd32;
+}
+.type-electric.badge {
+  background-color: #ffd700;
+}
+.type-psychic.badge {
+  background-color: #ff69b4;
+}
+.type-ice.badge {
+  background-color: #add8e6;
+}
+.type-dragon.badge {
+  background-color: #483d8b;
+}
+.type-dark.badge {
+  background-color: #2f4f4f;
+}
+.type-fairy.badge {
+  background-color: #ffb6c1;
+}
+.type-normal.badge {
+  background-color: #d3d3d3;
+}
+.type-fighting.badge {
+  background-color: #8b4513;
+}
+.type-flying.badge {
+  background-color: #87cefa;
+}
+.type-poison.badge {
+  background-color: #9400d3;
+}
+.type-ground.badge {
+  background-color: #d2b48c;
+}
+.type-rock.badge {
+  background-color: #a0522d;
+}
+.type-bug.badge {
+  background-color: #9acd32;
+}
+.type-ghost.badge {
+  background-color: #4b0082;
+}
+.type-steel.badge {
+  background-color: #a9a9a9;
+}

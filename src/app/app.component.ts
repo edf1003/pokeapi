@@ -9,7 +9,7 @@ import { PokemonCardComponent } from 'src/components/pokemon-card/pokemon-card.c
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   standalone: true,
-  imports: [CommonModule, HttpClientModule, PokemonCardComponent],
+  imports: [CommonModule, PokemonCardComponent],
 })
 export class AppComponent implements OnInit {
   tableParams: PaginatedParams = {
