@@ -1,6 +1,37 @@
 <h1 class="title">PokeApi</h1>
+
+<!-- Search Form -->
+<form class="search-form" [formGroup]="dataForm" (ngSubmit)="searchPokemon()">
+  <div class="search-container">
+    <input
+      id="name"
+      formControlName="name"
+      type="text"
+      placeholder="Busca un pokémon"
+      aria-label="Buscar Pokémon"
+    />
+    <button type="submit" [disabled]="dataForm.invalid || loading">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+  </div>
+</form>
+
+<!-- Loading Indicator -->
+<div *ngIf="pokemonsCache.length === 0" class="loading-indicator">
+  <i class="fa-solid fa-spinner fa-spin"></i> Cargando...
+</div>
+
+<!-- Pokémon Grid -->
 <div class="pokemon-grid">
-  <div *ngFor="let pokemon of pokemons" class="pokemon-item">
+  <div *ngFor="let pokemon of pokemonsCache" class="pokemon-item">
     <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+  </div>
+
+  <div class="pagination-container">
+    <button (click)="previousPage()" [disabled]="!canGoBack()"><</button>
+    <span class="pagination-text">
+      {{ getPaginationText() }}
+    </span>
+    <button (click)="nextPage()" [disabled]="!canGoNext()">></button>
   </div>
 </div>

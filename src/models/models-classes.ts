@@ -1,6 +1,6 @@
 export class PaginatedParams {
   currentPage: number = 0;
-  readonly PAGE_SIZE = 20;
+  PAGE_SIZE = 10;
 }
 
 export class PokeApiRsp {
