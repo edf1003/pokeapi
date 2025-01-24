@@ -1,7 +1,14 @@
 <h1 class="title">PokeApi</h1>
+<div *ngIf="loading" class="loading-indicator">
+  <i class="fa-solid fa-spinner fa-spin" style="margin-right: 10px"></i>
+  Cargando...
+</div>
 
-<!-- Search Form -->
-<form class="search-form" [formGroup]="dataForm" (ngSubmit)="searchPokemon()">
+<form
+  class="search-form"
+  [formGroup]="dataForm"
+  (ngSubmit)="searchPokemon(true)"
+>
   <div class="search-container">
     <input
       id="name"
@@ -16,22 +23,21 @@
   </div>
 </form>
 
-<!-- Loading Indicator -->
-<div *ngIf="pokemonsCache.length === 0" class="loading-indicator">
-  <i class="fa-solid fa-spinner fa-spin"></i> Cargando...
-</div>
-
-<!-- Pokémon Grid -->
-<div class="pokemon-grid">
+<div
+  *ngIf="pokemonsCache.length > 0 && !loading; else tmplNoResults"
+  class="pokemon-grid"
+>
   <div *ngFor="let pokemon of pokemonsCache" class="pokemon-item">
     <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
   </div>
-
-  <div class="pagination-container">
-    <button (click)="previousPage()" [disabled]="!canGoBack()"><</button>
-    <span class="pagination-text">
-      {{ getPaginationText() }}
-    </span>
-    <button (click)="nextPage()" [disabled]="!canGoNext()">></button>
-  </div>
+</div>
+<ng-template #tmplNoResults>
+  <div class="no-results">No se encontraron resultados</div>
+</ng-template>
+<div class="pagination-container">
+  <button (click)="previousPage()" [disabled]="!canGoBack()"><</button>
+  <span class="pagination-text">
+    {{ getPaginationText() }}
+  </span>
+  <button (click)="nextPage()" [disabled]="!canGoNext()">></button>
 </div>

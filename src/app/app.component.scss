@@ -74,7 +74,15 @@ button:hover {
 .loading-indicator {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
+  height: 100vh;
+  font-size: 18px;
+}
+
+.no-results {
+  display: flex;
+  justify-content: center;
+  align-items: start;
   height: 100vh;
   font-size: 18px;
 }

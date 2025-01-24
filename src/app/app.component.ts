@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { PokeApiService } from '../services/pokeapi.service';
 import { PaginatedParams, Pokemon } from '../models/models-classes';
 import { PokemonCardComponent } from 'src/components/pokemon-card/pokemon-card.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -17,68 +18,88 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
   ],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
+  loading = true;
+  pokemonsCache: Pokemon[] = [];
+
   tableParams: PaginatedParams = {
     currentPage: 0,
-    PAGE_SIZE: 1302,
+    PAGE_SIZE: 15,
   };
-  loading = false;
-
-  pokemonsCache: Pokemon[] = [];
 
   dataForm = this.formbuilder.group({
     name: [undefined as string],
   });
 
+  private subscription: Subscription = new Subscription();
+
   constructor(
-    public pokeApiService: PokeApiService,
-    private formbuilder: FormBuilder
+    private pokeApiService: PokeApiService,
+    private formbuilder: FormBuilder,
+    private ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
-    this.loadPokemons();
+    this.pokeApiService.getAllPokemons();
+    this.subscription = this.pokeApiService.hasLoadAllPokemons$.subscribe(
+      (loaded) => {
+        if (loaded) {
+          this.searchPokemon();
+          this.pokeApiService.hasLoadAllPokemons$.unsubscribe();
+        }
+      }
+    );
   }
 
-  loadPokemons() {
-    this.pokeApiService
-      .getPokemonsPaginated(
-        this.tableParams.currentPage * this.tableParams.PAGE_SIZE,
-        this.tableParams.PAGE_SIZE
-      )
-      .then((pokemons) => {
-        this.pokemonsCache = pokemons;
-      })
-      .catch((error) => {
-        console.error('Error loading pokemons:', error);
-      });
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
-  searchPokemon() {
-    if (!this.dataForm.controls.name.value) {
-      this.loadPokemons();
-    } else {
-      this.pokemonsCache = this.pokemonsCache.filter((p) =>
-        p.name.includes(this.dataForm.controls.name.value)
-      );
-    }
+  searchPokemon(restarPagination = false) {
+    this.loading = true;
+    this.ngZone.run(() => {
+      try {
+        if (restarPagination) {
+          this.tableParams.currentPage = 0;
+        }
+        this.pokemonsCache = this.pokeApiService.getPokemonsPaginated(
+          this.tableParams.currentPage * this.tableParams.PAGE_SIZE,
+          this.tableParams.PAGE_SIZE,
+          this.dataForm.controls.name.value
+        );
+      } catch (error) {
+        console.error('Error fetching pokemons:', error);
+      } finally {
+        this.loading = false;
+      }
+    });
   }
 
   previousPage() {
     if (!this.canGoBack()) return;
-    this.pokemonsCache = [];
     setTimeout(() => {
       this.tableParams.currentPage--;
-      this.loadPokemons();
+      this.searchPokemon();
     }, 500);
+  }
+
+  canGoBack() {
+    return this.tableParams.currentPage > 0;
   }
 
   nextPage() {
     if (!this.canGoNext()) return;
-    this.pokemonsCache = [];
     setTimeout(() => {
       this.tableParams.currentPage++;
-      this.loadPokemons();
+      this.searchPokemon();
     }, 500);
+  }
+
+  canGoNext() {
+    return (
+      this.tableParams.currentPage <
+      this.pokeApiService.totalPokemons / this.tableParams.PAGE_SIZE - 1
+    );
   }
 
   getPaginationText() {
@@ -87,20 +108,10 @@ export class AppComponent implements OnInit {
       1 +
       ' de ' +
       (
-        this.pokeApiService.totalPokemons / this.tableParams.PAGE_SIZE -
-        1
+        Math.floor(
+          this.pokeApiService.totalPokemons / this.tableParams.PAGE_SIZE
+        ) + 1
       ).toFixed(0)
-    );
-  }
-
-  canGoBack() {
-    return this.tableParams.currentPage > 0;
-  }
-
-  canGoNext() {
-    return (
-      this.tableParams.currentPage <
-      this.pokeApiService.totalPokemons / this.tableParams.PAGE_SIZE - 1
     );
   }
 }
