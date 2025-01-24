@@ -18,4 +18,10 @@
       <i class="fa-solid fa-arrows-up-down"></i> {{ pokemon.height }} m
     </div>
   </div>
+  <div class="stats-container">
+    <div *ngFor="let stat of pokemon.stats" class="stat-item">
+      <span class="stat-name">{{ getStatAbbreviation(stat.stat.name) }}</span>
+      <span class="stat-value">{{ stat.base_stat }}</span>
+    </div>
+  </div>
 </div>

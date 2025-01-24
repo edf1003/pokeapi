@@ -35,7 +35,18 @@ export class PokemonCardComponent {
       ghost: 'Fantasma',
       steel: 'Acero',
     };
-
     return translations[type.toLowerCase()] || type;
+  }
+
+  getStatAbbreviation(statName: string): string {
+    const statAbbreviations: { [key: string]: string } = {
+      hp: 'HP',
+      attack: 'ATK',
+      defense: 'DEF',
+      'special-attack': 'SPA',
+      'special-defense': 'SPD',
+      speed: 'SPE',
+    };
+    return statAbbreviations[statName] || statName;
   }
 }

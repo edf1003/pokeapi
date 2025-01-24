@@ -5,6 +5,14 @@
   color: #333;
   text-align: center;
   min-width: 150px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pokemon-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
 .pokemon-name {
@@ -33,114 +41,89 @@
   text-transform: capitalize;
 }
 
-/* Fondo de tipo suave (pastel) */
-.type-fire {
-  background-color: rgba(255, 69, 0, 0.1); /* Pastel */
-}
-.type-water {
-  background-color: rgba(0, 191, 255, 0.1); /* Pastel */
-}
-.type-grass {
-  background-color: rgba(50, 205, 50, 0.1); /* Pastel */
-}
-.type-electric {
-  background-color: rgba(255, 255, 0, 0.1); /* Pastel */
-}
-.type-psychic {
-  background-color: rgba(255, 105, 180, 0.1); /* Pastel */
-}
-.type-ice {
-  background-color: rgba(173, 216, 230, 0.1); /* Pastel */
-}
-.type-dragon {
-  background-color: rgba(72, 61, 139, 0.1); /* Pastel */
-}
-.type-dark {
-  background-color: rgba(47, 79, 79, 0.1); /* Pastel */
-}
-.type-fairy {
-  background-color: rgba(255, 182, 193, 0.1); /* Pastel */
-}
-.type-normal {
-  background-color: rgba(211, 211, 211, 0.1); /* Pastel */
-}
-.type-fighting {
-  background-color: rgba(139, 69, 19, 0.1); /* Pastel */
-}
-.type-flying {
-  background-color: rgba(135, 206, 250, 0.1); /* Pastel */
-}
-.type-poison {
-  background-color: rgba(148, 0, 211, 0.1); /* Pastel */
-}
-.type-ground {
-  background-color: rgba(210, 180, 140, 0.1); /* Pastel */
-}
-.type-rock {
-  background-color: rgba(160, 82, 45, 0.1); /* Pastel */
-}
-.type-bug {
-  background-color: rgba(154, 205, 50, 0.1); /* Pastel */
-}
-.type-ghost {
-  background-color: rgba(75, 0, 130, 0.1); /* Pastel */
-}
-.type-steel {
-  background-color: rgba(169, 169, 169, 0.1); /* Pastel */
+.stats-container {
+  position: absolute;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px;
+  border-radius: 0 0 15px 15px;
+  transition: bottom 0.3s ease;
 }
 
-/* Badges más intensos */
-.type-fire.badge {
-  background-color: #ff4500;
+.pokemon-card:hover .stats-container {
+  bottom: 0;
 }
-.type-water.badge {
-  background-color: #00bfff;
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
 }
-.type-grass.badge {
-  background-color: #32cd32;
+
+.stat-name {
+  font-weight: bold;
+  text-transform: uppercase;
 }
-.type-electric.badge {
-  background-color: #ffd700;
+
+.stat-value {
+  font-weight: bold;
+  color: #555;
 }
-.type-psychic.badge {
-  background-color: #ff69b4;
+
+/* Colores de tipo pastel */
+.type-fire {
+  background-color: rgba(255, 69, 0, 0.1);
 }
-.type-ice.badge {
-  background-color: #add8e6;
+.type-water {
+  background-color: rgba(0, 191, 255, 0.1);
 }
-.type-dragon.badge {
-  background-color: #483d8b;
+.type-grass {
+  background-color: rgba(50, 205, 50, 0.1);
 }
-.type-dark.badge {
-  background-color: #2f4f4f;
+.type-electric {
+  background-color: rgba(255, 255, 0, 0.1);
 }
-.type-fairy.badge {
-  background-color: #ffb6c1;
+.type-psychic {
+  background-color: rgba(255, 105, 180, 0.1);
 }
-.type-normal.badge {
-  background-color: #d3d3d3;
+.type-ice {
+  background-color: rgba(173, 216, 230, 0.1);
 }
-.type-fighting.badge {
-  background-color: #8b4513;
+.type-dragon {
+  background-color: rgba(72, 61, 139, 0.1);
 }
-.type-flying.badge {
-  background-color: #87cefa;
+.type-dark {
+  background-color: rgba(47, 79, 79, 0.1);
 }
-.type-poison.badge {
-  background-color: #9400d3;
+.type-fairy {
+  background-color: rgba(255, 182, 193, 0.1);
 }
-.type-ground.badge {
-  background-color: #d2b48c;
+.type-normal {
+  background-color: rgba(211, 211, 211, 0.1);
 }
-.type-rock.badge {
-  background-color: #a0522d;
+.type-fighting {
+  background-color: rgba(139, 69, 19, 0.1);
 }
-.type-bug.badge {
-  background-color: #9acd32;
+.type-flying {
+  background-color: rgba(135, 206, 250, 0.1);
 }
-.type-ghost.badge {
-  background-color: #4b0082;
+.type-poison {
+  background-color: rgba(148, 0, 211, 0.1);
 }
-.type-steel.badge {
-  background-color: #a9a9a9;
+.type-ground {
+  background-color: rgba(210, 180, 140, 0.1);
+}
+.type-rock {
+  background-color: rgba(160, 82, 45, 0.1);
+}
+.type-bug {
+  background-color: rgba(154, 205, 50, 0.1);
+}
+.type-ghost {
+  background-color: rgba(75, 0, 130, 0.1);
+}
+.type-steel {
+  background-color: rgba(169, 169, 169, 0.1);
 }

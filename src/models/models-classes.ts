@@ -26,9 +26,9 @@ export class PokemonType {
 }
 
 export class PokemonStat {
-  baseStat: number;
+  base_stat: number;
   effort: number;
-  name: NamedAPIResource;
+  stat: NamedAPIResource;
 }
 
 export class PokemonSprite {
