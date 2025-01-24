@@ -1,6 +1,6 @@
 import {
   withHttpTransferCache
-} from "./chunk-2ZYQN55X.js";
+} from "./chunk-VMKKYLXK.js";
 import {
   CommonModule,
   DOCUMENT,
@@ -11,7 +11,7 @@ import {
   isPlatformServer,
   parseCookieValue,
   setRootDomAdapter
-} from "./chunk-YQYIF4IZ.js";
+} from "./chunk-IGOQKZ44.js";
 import {
   APP_ID,
   ApplicationModule,
@@ -70,8 +70,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-7ULNPOKR.js";
-import "./chunk-ZSY7TSMJ.js";
+} from "./chunk-WHBN4HLB.js";
 import {
   __spreadProps,
   __spreadValues

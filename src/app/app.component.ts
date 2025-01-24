@@ -20,7 +20,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 export class AppComponent implements OnInit {
   tableParams: PaginatedParams = {
     currentPage: 0,
-    PAGE_SIZE: 15,
+    PAGE_SIZE: 1302,
   };
   loading = false;
 
@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
     return (
       this.tableParams.currentPage +
       1 +
-      ' - ' +
+      ' de ' +
       (
         this.pokeApiService.totalPokemons / this.tableParams.PAGE_SIZE -
         1

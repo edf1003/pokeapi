@@ -6,6 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CapitalizePipe implements PipeTransform {
   transform(value: string): string {
     if (!value) return value;
-    return value.charAt(0).toUpperCase() + value.slice(1);
+
+    const words = value.split('-');
+
+    const capitalizedWords = words.map(
+      (word) => word.charAt(0).toUpperCase() + word.slice(1)
+    );
+
+    return capitalizedWords.join(' ');
   }
 }
