@@ -10,6 +10,22 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.pokemon-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/assets/pokeball.png');
+  background-size: 58%;
+  background-position-y: top;
+  background-position-x: center;
+  background-repeat: no-repeat;
+  margin-top: 10px;
+  opacity: 0.05;
+  z-index: -1;
+}
 .pokemon-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);

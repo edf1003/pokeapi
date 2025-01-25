@@ -9,14 +9,16 @@ import { PokeApiRsp, Pokemon } from '../models/models-classes';
 export class PokeApiService {
   totalPokemons: number = 0;
   pokemonsCache: Pokemon[] = [];
-  hasLoadAllPokemons$ = new BehaviorSubject<boolean>(false); // Usamos un BehaviorSubject
+  hasLoadAllPokemons$ = new BehaviorSubject<boolean>(false); // BehaviorSubject para notificar cuando se han cargado todos los Pokémon
 
   constructor(private http: HttpClient) {}
 
+  //Método para obtener la URL base de la API
   private getBaseUrl(): string {
     return 'https://pokeapi.co/api/v2/';
   }
 
+  //Métoco para cargar todos los Pokémon
   async getAllPokemons() {
     try {
       const rsp = await this.http
@@ -41,6 +43,7 @@ export class PokeApiService {
     }
   }
 
+  //Método para obtener los Pokémon paginados de memoria
   getPokemonsPaginated(skip: number, take: number, name?: string): Pokemon[] {
     if (name) {
       var pokemons = this.pokemonsCache.filter((p) => p.name.includes(name));

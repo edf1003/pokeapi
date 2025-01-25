@@ -14,6 +14,7 @@ export class PokemonCardComponent {
   @Input() pokemon: Pokemon;
   constructor() {}
 
+  //Método para obtener el tipo del Pokémon traducido
   translateType(type: string): string {
     const translations: { [key: string]: string } = {
       fire: 'Fuego',
@@ -38,6 +39,7 @@ export class PokemonCardComponent {
     return translations[type.toLowerCase()] || type;
   }
 
+  //Método para obtener la abreviatura de una estadística
   getStatAbbreviation(statName: string): string {
     const statAbbreviations: { [key: string]: string } = {
       hp: 'HP',

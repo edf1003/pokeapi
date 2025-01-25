@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   loading = true;
-  pokemonsCache: Pokemon[] = [];
+  pokemonsPaginated: Pokemon[] = [];
 
   tableParams: PaginatedParams = {
     currentPage: 0,
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit, OnDestroy {
         if (restarPagination) {
           this.tableParams.currentPage = 0;
         }
-        this.pokemonsCache = this.pokeApiService.getPokemonsPaginated(
+        this.pokemonsPaginated = this.pokeApiService.getPokemonsPaginated(
           this.tableParams.currentPage * this.tableParams.PAGE_SIZE,
           this.tableParams.PAGE_SIZE,
           this.dataForm.controls.name.value
