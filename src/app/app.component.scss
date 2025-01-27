@@ -14,9 +14,10 @@
   grid-template-columns: repeat(
     5,
     1fr
-  ); /* 5 cards por fila en pantallas grandes */
+  );
   gap: 16px;
   padding: 16px;
+  margin-bottom: 80px;
 }
 
 .pokemon-item {
