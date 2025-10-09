@@ -84,4 +84,52 @@ export class PokeApiService {
       })
     );
   }
+
+  // Obtener evoluciones dado el id de un pokemon
+  // Devuelve un Observable con el array de Pokemon (detalles básicos)
+  getEvolutionsForPokemon(id: number): Observable<Pokemon[]> {
+    // Primero obtener el pokemon (para acceder a species.url)
+    return this.getPokemonById(id).pipe(
+      switchMap((pokemon) => {
+        const speciesUrl =
+          (pokemon.species && pokemon.species.url) ||
+          `${this.getBaseUrl()}pokemon-species/${pokemon.id}/`;
+        return this.http.get<any>(speciesUrl).pipe(
+          switchMap((speciesRsp) => {
+            const evoUrl = speciesRsp.evolution_chain?.url;
+            if (!evoUrl) return of([]);
+            return this.http.get<any>(evoUrl).pipe(
+              map((chainRsp) => {
+                // parsear cadena recursiva para obtener nombres
+                const names: string[] = [];
+                function traverse(node: any) {
+                  if (!node) return;
+                  if (node.species && node.species.name)
+                    names.push(node.species.name);
+                  if (node.evolves_to && node.evolves_to.length) {
+                    node.evolves_to.forEach((c: any) => traverse(c));
+                  }
+                }
+                traverse(chainRsp.chain);
+                return names;
+              }),
+              switchMap((names: string[]) => {
+                if (!names || names.length === 0) return of([]);
+                // convertir cada nombre en petición para obtener su Pokemon
+                const requests = names.map((n) =>
+                  this.http.get<Pokemon>(`${this.getBaseUrl()}pokemon/${n}`)
+                );
+                return forkJoin(requests).pipe(
+                  catchError((err) => {
+                    console.error('Error fetching evolution pokemons', err);
+                    return of([]);
+                  })
+                );
+              })
+            );
+          })
+        );
+      })
+    );
+  }
 }
