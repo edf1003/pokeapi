@@ -20,9 +20,9 @@ export class PokeApiService {
   }
 
   // Método para cargar todos los Pokémon (ahora devuelve Observable)
-  getAllPokemons(): Observable<Pokemon[]> {
-    // Si ya tenemos cache, devolvemos el cache y no recargamos
-    if (this.pokemonsCache && this.pokemonsCache.length > 0) {
+  getAllPokemons(forceReload: boolean = false): Observable<Pokemon[]> {
+    // Si ya tenemos cache y no se fuerza la recarga, devolvemos el cache
+    if (!forceReload && this.pokemonsCache && this.pokemonsCache.length > 0) {
       // asegurar que el subject indique que ya cargó
       this.hasLoadAllPokemons$.next(true);
       return of(this.pokemonsCache);

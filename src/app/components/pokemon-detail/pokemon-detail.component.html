@@ -14,12 +14,22 @@
         <h1>{{ pokemon.name | capitalize }}</h1>
       </div>
       <div class="pokedex-sprite">
-        <img
-          [src]="pokemon.sprites.front_default || 'assets/no-image.png'"
-          [alt]="pokemon.name"
-          width="240"
-          height="240"
-        />
+        <div class="pokemon-image-container">
+          <img
+            class="normal-sprite"
+            [src]="pokemon.sprites.front_default || 'assets/no-image.png'"
+            [alt]="pokemon.name"
+            width="240"
+            height="240"
+          />
+          <img
+            class="shiny-sprite"
+            [src]="pokemon.sprites.front_shiny || pokemon.sprites.front_default || 'assets/no-image.png'"
+            [alt]="pokemon.name + ' shiny'"
+            width="240"
+            height="240"
+          />
+        </div>
       </div>
       <p
         class="pokedex-desc"
@@ -109,8 +119,8 @@
                 <img
                   [src]="evo.sprites.front_default || 'assets/no-image.png'"
                   [alt]="evo.name"
-                  width="60"
-                  height="60"
+                  width="100"
+                  height="100"
                   draggable="false"
                 />
                 {{ evo.name | capitalize }}
@@ -120,12 +130,12 @@
           <!-- Sprite shiny -->
           <div class="pokedex-card" *ngIf="pokemon.sprites.front_shiny">
             <h2 style="margin-bottom: 8px">Forma shiny</h2>
-            <div class="pokedex-sprite" style="height: 80px">
+            <div class="pokedex-sprite">
               <img
                 [src]="pokemon.sprites.front_shiny"
                 alt="Shiny {{ pokemon.name }}"
-                width="60"
-                height="60"
+                width="100"
+                height="100"
               />
             </div>
           </div>

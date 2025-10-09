@@ -41,7 +41,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // Suscribirse a la carga de todos los pokemons y poblar la vista
-    const subAll = this.pokeApiService.getAllPokemons().subscribe({
+    // Forzamos la recarga completa al entrar al home
+    const subAll = this.pokeApiService.getAllPokemons(true).subscribe({
       next: () => {
         this.searchPokemon();
       },
