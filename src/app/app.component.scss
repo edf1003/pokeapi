@@ -14,9 +14,10 @@
   grid-template-columns: repeat(
     5,
     1fr
-  ); /* 5 cards por fila en pantallas grandes */
+  );
   gap: 16px;
   padding: 16px;
+  margin-bottom: 80px;
 }
 
 .pokemon-item {
@@ -114,13 +115,7 @@ button:hover {
 }
 
 /* Media Queries para ajustar el número de columnas */
-@media (max-width: 1200px) {
-  .pokemon-grid {
-    grid-template-columns: repeat(4, 1fr); /* 4 cards por fila */
-  }
-}
-
-@media (max-width: 992px) {
+@media (max-width: 1050px) {
   .pokemon-grid {
     grid-template-columns: repeat(3, 1fr); /* 3 cards por fila */
   }
