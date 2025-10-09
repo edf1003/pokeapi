@@ -1,0 +1,139 @@
+.logo {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.logo img {
+  height: 20%;
+  width: 20%;
+}
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    5,
+    1fr
+  ); /* 5 cards por fila en pantallas grandes */
+  gap: 16px;
+  padding: 16px;
+}
+
+.pokemon-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #375576;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #234161;
+}
+
+.pagination-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.pagination-text {
+  font-size: 14px;
+  color: #333;
+}
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+}
+
+.pokeball-spin {
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  margin-top: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.no-results {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 100vh;
+  font-size: 18px;
+}
+
+/* Media Queries para ajustar el número de columnas */
+@media (max-width: 1200px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 cards por fila */
+  }
+}
+
+@media (max-width: 992px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 cards por fila */
+  }
+}
+
+@media (max-width: 768px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards por fila */
+  }
+}
+
+@media (max-width: 480px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(1, 1fr); /* 1 card por fila */
+  }
+}

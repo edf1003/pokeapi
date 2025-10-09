@@ -1,0 +1,47 @@
+<div *ngIf="loading" class="loading-indicator">
+  <img src="assets/pokeball.png" alt="pokeball" class="pokeball-spin" />
+  <div class="loading-text">Cargando</div>
+</div>
+
+<div *ngIf="!loading">
+  <div class="logo">
+    <img src="assets/pokeapiLogo.png" alt="PokeApi" />
+  </div>
+  <form
+    class="search-form"
+    [formGroup]="dataForm"
+    (ngSubmit)="searchPokemon(true)"
+  >
+    <div class="search-container">
+      <input
+        id="name"
+        formControlName="name"
+        type="text"
+        placeholder="Busca un pokémon"
+        aria-label="Buscar Pokémon"
+      />
+      <button type="submit" [disabled]="dataForm.invalid || loading">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+  </form>
+
+  <div
+    *ngIf="pokemonsPaginated.length > 0 && !loading; else tmplNoResults"
+    class="pokemon-grid"
+  >
+    <div *ngFor="let pokemon of pokemonsPaginated" class="pokemon-item">
+      <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+    </div>
+  </div>
+  <ng-template #tmplNoResults>
+    <div class="no-results">No se encontraron resultados</div>
+  </ng-template>
+  <div class="pagination-container">
+    <button (click)="previousPage()" [disabled]="!canGoBack()"><</button>
+    <span class="pagination-text">
+      {{ getPaginationText() }}
+    </span>
+    <button (click)="nextPage()" [disabled]="!canGoNext()">></button>
+  </div>
+</div>

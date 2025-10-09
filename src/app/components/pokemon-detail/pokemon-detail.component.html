@@ -1,0 +1,74 @@
+@if (loading && !pokemon) {
+<div class="loading-indicator">
+  <img src="/assets/pokeball.png" alt="pokeball" class="pokeball-spin" />
+  <div class="loading-text">Cargando</div>
+</div>
+} @else if (!loading && !pokemon) {
+<div class="no-results">No se encontró el pokémon</div>
+} @else if (!loading && pokemon) {
+
+<div class="detail-root">
+  <div class="header">
+    <h1>#{{ pokemon.id }} - {{ pokemon.name | uppercase }}</h1>
+    <img [src]="pokemon.sprites.front_default" alt="{{ pokemon.name }}" />
+  </div>
+
+  <section class="meta">
+    <div><strong>Base experience:</strong> {{ pokemon.base_experience }}</div>
+    <div><strong>Height:</strong> {{ pokemon.height }}</div>
+    <div><strong>Weight:</strong> {{ pokemon.weight }}</div>
+    <div><strong>Order:</strong> {{ pokemon.order }}</div>
+    <div><strong>Default:</strong> {{ pokemon.is_default }}</div>
+  </section>
+
+  <section class="types">
+    <h3>Types</h3>
+    <ul>
+      <li *ngFor="let t of pokemon.types">{{ t.type.name }}</li>
+    </ul>
+  </section>
+
+  <section class="abilities">
+    <h3>Abilities</h3>
+    <ul>
+      <li *ngFor="let a of pokemon.abilities">{{ a.ability.name }}</li>
+    </ul>
+  </section>
+
+  <section class="stats">
+    <h3>Stats</h3>
+    <ul>
+      <li *ngFor="let s of pokemon.stats">
+        {{ s.stat.name }}: {{ s.base_stat }}
+      </li>
+    </ul>
+  </section>
+
+  <section class="moves">
+    <h3>Moves</h3>
+    <div class="moves-list">
+      <span *ngFor="let m of pokemon.moves">{{ m.move.name }}</span>
+    </div>
+  </section>
+
+  <section class="sprites">
+    <h3>Sprites</h3>
+    <img
+      *ngIf="pokemon.sprites.back_default"
+      [src]="pokemon.sprites.back_default"
+    />
+    <img
+      *ngIf="pokemon.sprites.front_shiny"
+      [src]="pokemon.sprites.front_shiny"
+    />
+  </section>
+
+  <section class="raw">
+    <h3>Other</h3>
+    <div><strong>Forms:</strong> {{ pokemon.forms?.length }}</div>
+    <div><strong>Game indices:</strong> {{ pokemon.game_indices?.length }}</div>
+    <div><strong>Held items:</strong> {{ pokemon.held_items?.length }}</div>
+    <div><strong>Species:</strong> {{ pokemon.species?.name }}</div>
+  </section>
+</div>
+}

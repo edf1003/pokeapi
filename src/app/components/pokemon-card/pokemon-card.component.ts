@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Pokemon } from 'src/models/models-classes';
-import { CapitalizePipe } from 'src/pipes/capitalize.pipe';
+import { Router } from '@angular/router';
+import { Pokemon } from 'src/app/models/models-classes';
+import { CapitalizePipe } from 'src/app/pipes/capitalize.pipe';
 
 @Component({
   selector: 'app-pokemon-card',
@@ -12,7 +13,12 @@ import { CapitalizePipe } from 'src/pipes/capitalize.pipe';
 })
 export class PokemonCardComponent {
   @Input() pokemon: Pokemon;
-  constructor() {}
+  constructor(private router: Router) {}
+
+  goToDetail() {
+    if (!this.pokemon || !this.pokemon.id) return;
+    this.router.navigate(['/pokemon', this.pokemon.id]);
+  }
 
   //Método para obtener el tipo del Pokémon traducido
   translateType(type: string): string {

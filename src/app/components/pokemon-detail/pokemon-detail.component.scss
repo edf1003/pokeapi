@@ -1,0 +1,50 @@
+.detail-root {
+  padding: 16px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.types,
+.abilities,
+.stats,
+.moves,
+.sprites {
+  margin-top: 12px;
+}
+.moves-list span {
+  display: inline-block;
+  margin: 4px;
+  padding: 4px 8px;
+  background: #eee;
+  border-radius: 4px;
+}
+
+.loading-indicator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+}
+
+.pokeball-spin {
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  margin-top: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

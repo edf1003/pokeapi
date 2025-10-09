@@ -1,6 +1,9 @@
 <div
   class="pokemon-card"
   [ngClass]="'type-' + pokemon.types[0].type.name.toLowerCase()"
+  (click)="goToDetail()"
+  role="button"
+  tabindex="0"
 >
   <img src="{{ pokemon.sprites.front_default }}" alt="{{ pokemon.name }}" />
   <div class="pokemon-name">{{ pokemon.name | capitalize }}</div>
