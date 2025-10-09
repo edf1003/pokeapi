@@ -85,15 +85,71 @@ export class PokeApiService {
     );
   }
 
+  // Obtener el Pokémon base si el actual es una variante
+  getBasePokemon(pokemon: Pokemon): Observable<Pokemon | null> {
+    if (!pokemon.species?.url) return of(null);
+    
+    return this.http.get<any>(pokemon.species.url).pipe(
+      switchMap(species => {
+        const defaultForm = species.varieties?.find((v: any) => v.is_default)?.pokemon?.url;
+        if (!defaultForm) return of(null);
+        return this.http.get<Pokemon>(defaultForm);
+      }),
+      catchError(() => of(null))
+    );
+  }
+
   // Obtener evoluciones dado el id de un pokemon
   // Devuelve un Observable con el array de Pokemon (detalles básicos)
+  getPokemonVariants(id: number): Observable<Pokemon[]> {
+    return this.getPokemonById(id).pipe(
+      switchMap((pokemon) => {
+        // Obtener formas alternativas del Pokémon
+        const formPromises: Observable<Pokemon>[] = (pokemon.forms || [])
+          .filter(
+            (form) => form.url !== `${this.getBaseUrl()}pokemon-form/${id}/`
+          )
+          .map((form) => this.http.get<Pokemon>(form.url));
+
+        // Obtener la especie para mega evoluciones y formas regionales
+        const speciesUrl =
+          pokemon.species?.url || `${this.getBaseUrl()}pokemon-species/${id}/`;
+        const speciesRequest = this.http.get<any>(speciesUrl).pipe(
+          switchMap((species) => {
+            const variantPromises = (species.varieties || [])
+              .filter(
+                (v) => v.pokemon.url !== `${this.getBaseUrl()}pokemon/${id}/`
+              )
+              .map((v) => this.http.get<Pokemon>(v.pokemon.url));
+            return variantPromises.length 
+              ? forkJoin(variantPromises)
+              : of([] as Pokemon[]);
+          })
+        );
+
+        // Si hay formas, combinarlas
+        const formsObs = formPromises.length
+          ? forkJoin(formPromises)
+          : of([] as Pokemon[]);
+
+        return forkJoin({
+          forms: formsObs as Observable<Pokemon[]>,
+          varieties: speciesRequest as Observable<Pokemon[]>,
+        }).pipe(
+          map(({ forms, varieties }) => [...(forms || []), ...(varieties || [])]),
+          catchError(() => of([]))
+        );
+      })
+    );
+  }
+
   getEvolutionsForPokemon(id: number): Observable<Pokemon[]> {
     // Primero obtener el pokemon (para acceder a species.url)
     return this.getPokemonById(id).pipe(
       switchMap((pokemon) => {
         const speciesUrl =
           (pokemon.species && pokemon.species.url) ||
-          `${this.getBaseUrl()}pokemon-species/${pokemon.id}/`;
+          `${this.getBaseUrl()}pokemon-species/${id}/`;
         return this.http.get<any>(speciesUrl).pipe(
           switchMap((speciesRsp) => {
             const evoUrl = speciesRsp.evolution_chain?.url;

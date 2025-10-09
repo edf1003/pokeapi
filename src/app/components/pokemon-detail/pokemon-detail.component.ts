@@ -18,8 +18,10 @@ export class PokemonDetailComponent implements OnInit, OnDestroy {
   pokemon: Pokemon | null = null;
   loading = true;
   evolutions: Pokemon[] = [];
+  variants: Pokemon[] = [];
   private sub: Subscription | null = null;
   private subEvo: Subscription | null = null;
+  private subVar: Subscription | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +44,7 @@ export class PokemonDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.sub?.unsubscribe();
     this.subEvo?.unsubscribe();
+    this.subVar?.unsubscribe();
   }
 
   goHome() {
@@ -70,24 +73,53 @@ export class PokemonDetailComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.sub?.unsubscribe();
     this.subEvo?.unsubscribe();
+    this.subVar?.unsubscribe();
 
     this.sub = this.pokeApi.getPokemonById(id).subscribe({
-      next: (p) => {
-        this.pokemon = p;
+      next: (currentPokemon) => {
+        this.pokemon = currentPokemon;
         this.loading = false;
-        this.subEvo = this.pokeApi.getEvolutionsForPokemon(p.id).subscribe({
-          next: (evs) => {
-            this.evolutions = evs.filter((x) => x && x.id !== p.id);
+
+        // Verificar si el Pokémon actual es una variante
+        this.pokeApi.getBasePokemon(currentPokemon).subscribe({
+          next: (basePokemon) => {
+            const baseId = basePokemon?.id || currentPokemon.id;
+            
+            // Cargar evoluciones del Pokémon base
+            this.subEvo = this.pokeApi.getEvolutionsForPokemon(baseId).subscribe({
+              next: (evs) => {
+                this.evolutions = evs.filter(x => x && x.id !== currentPokemon.id);
+                
+                // Después cargar variantes del Pokémon base
+                this.subVar = this.pokeApi.getPokemonVariants(baseId).subscribe({
+                  next: (vars) => {
+                    const evolutionIds = new Set(this.evolutions.map(e => e.id));
+                    this.variants = vars.filter(x => 
+                      x && 
+                      x.id !== currentPokemon.id && // Excluir el Pokémon actual
+                      x.id !== baseId && // Excluir el Pokémon base si estamos en una variante
+                      !evolutionIds.has(x.id) // Excluir evoluciones
+                    );
+                  },
+                  error: (e) => {
+                    console.error('Error loading variants', e);
+                  }
+                });
+              },
+              error: (e) => {
+                console.error('Error loading evolutions', e);
+              }
+            });
           },
           error: (e) => {
-            console.error('Error loading evolutions', e);
-          },
+            console.error('Error getting base pokemon', e);
+          }
         });
       },
       error: (e) => {
         console.error('Error loading pokemon detail', e);
         this.loading = false;
-      },
+      }
     });
   }
 

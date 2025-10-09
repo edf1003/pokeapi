@@ -110,37 +110,50 @@
         </div>
         <!-- Evolutions y Shiny en la misma línea -->
         <div class="pokedex-row">
-          <!-- Evoluciones -->
-          <div class="pokedex-card" *ngIf="evolutions?.length">
-            <h2 style="margin-bottom: 8px">Evoluciones</h2>
+          <!-- Evoluciones y Variantes -->
+          <div class="pokedex-card" *ngIf="evolutions?.length || variants?.length">
+            <h2 style="margin-bottom: 8px">
+              {{ (evolutions?.length && variants?.length ? 'Evoluciones y Formas' : 
+                  evolutions?.length ? 'Evoluciones' : 'Formas Alternativas') }}
+            </h2>
             <div class="evolution-list">
-              <button
-                *ngFor="let evo of evolutions"
-                class="evolution"
-                (click)="goToPokemon(evo.id, $event)"
-                [disabled]="loading"
-              >
-                <img
-                  [src]="evo.sprites.front_default || 'assets/no-image.png'"
-                  [alt]="evo.name"
-                  width="100"
-                  height="100"
-                  draggable="false"
-                />
-                {{ evo.name | capitalize }}
-              </button>
-            </div>
-          </div>
-          <!-- Sprite shiny -->
-          <div class="pokedex-card" *ngIf="pokemon.sprites.front_shiny">
-            <h2 style="margin-bottom: 8px">Forma shiny</h2>
-            <div class="pokedex-sprite">
-              <img
-                [src]="pokemon.sprites.front_shiny"
-                alt="Shiny {{ pokemon.name }}"
-                width="100"
-                height="100"
-              />
+              <!-- Evoluciones -->
+              <ng-container *ngIf="evolutions?.length">
+                <button
+                  *ngFor="let evo of evolutions"
+                  class="evolution"
+                  (click)="goToPokemon(evo.id, $event)"
+                  [disabled]="loading"
+                >
+                  <img
+                    [src]="evo.sprites.front_default || 'assets/no-image.png'"
+                    [alt]="evo.name"
+                    width="100"
+                    height="100"
+                    draggable="false"
+                  />
+                  {{ evo.name | capitalize }}
+                </button>
+              </ng-container>
+
+              <!-- Variantes -->
+              <ng-container *ngIf="variants?.length">
+                <button
+                  *ngFor="let variant of variants"
+                  class="evolution variant"
+                  (click)="goToPokemon(variant.id, $event)"
+                  [disabled]="loading"
+                >
+                  <img
+                    [src]="variant.sprites.front_default || 'assets/no-image.png'"
+                    [alt]="variant.name"
+                    width="100"
+                    height="100"
+                    draggable="false"
+                  />
+                  {{ variant.name | capitalize }}
+                </button>
+              </ng-container>
             </div>
           </div>
         </div>
