@@ -88,10 +88,11 @@ export class PokeApiService {
   // Obtener el Pokémon base si el actual es una variante
   getBasePokemon(pokemon: Pokemon): Observable<Pokemon | null> {
     if (!pokemon.species?.url) return of(null);
-    
+
     return this.http.get<any>(pokemon.species.url).pipe(
-      switchMap(species => {
-        const defaultForm = species.varieties?.find((v: any) => v.is_default)?.pokemon?.url;
+      switchMap((species) => {
+        const defaultForm = species.varieties?.find((v: any) => v.is_default)
+          ?.pokemon?.url;
         if (!defaultForm) return of(null);
         return this.http.get<Pokemon>(defaultForm);
       }),
@@ -121,7 +122,7 @@ export class PokeApiService {
                 (v) => v.pokemon.url !== `${this.getBaseUrl()}pokemon/${id}/`
               )
               .map((v) => this.http.get<Pokemon>(v.pokemon.url));
-            return variantPromises.length 
+            return variantPromises.length
               ? forkJoin(variantPromises)
               : of([] as Pokemon[]);
           })
@@ -136,7 +137,10 @@ export class PokeApiService {
           forms: formsObs as Observable<Pokemon[]>,
           varieties: speciesRequest as Observable<Pokemon[]>,
         }).pipe(
-          map(({ forms, varieties }) => [...(forms || []), ...(varieties || [])]),
+          map(({ forms, varieties }) => [
+            ...(forms || []),
+            ...(varieties || []),
+          ]),
           catchError(() => of([]))
         );
       })

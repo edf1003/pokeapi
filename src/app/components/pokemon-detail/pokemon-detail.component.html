@@ -111,10 +111,18 @@
         <!-- Evolutions y Shiny en la misma línea -->
         <div class="pokedex-row">
           <!-- Evoluciones y Variantes -->
-          <div class="pokedex-card" *ngIf="evolutions?.length || variants?.length">
+          <div
+            class="pokedex-card"
+            *ngIf="evolutions?.length || variants?.length"
+          >
             <h2 style="margin-bottom: 8px">
-              {{ (evolutions?.length && variants?.length ? 'Evoluciones y Formas' : 
-                  evolutions?.length ? 'Evoluciones' : 'Formas Alternativas') }}
+              {{
+                evolutions?.length && variants?.length
+                  ? 'Evoluciones y Formas'
+                  : evolutions?.length
+                  ? 'Evoluciones'
+                  : 'Formas Alternativas'
+              }}
             </h2>
             <div class="evolution-list">
               <!-- Evoluciones -->
@@ -145,7 +153,9 @@
                   [disabled]="loading"
                 >
                   <img
-                    [src]="variant.sprites.front_default || 'assets/no-image.png'"
+                    [src]="
+                      variant.sprites.front_default || 'assets/no-image.png'
+                    "
                     [alt]="variant.name"
                     width="100"
                     height="100"

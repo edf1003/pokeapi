@@ -84,42 +84,51 @@ export class PokemonDetailComponent implements OnInit, OnDestroy {
         this.pokeApi.getBasePokemon(currentPokemon).subscribe({
           next: (basePokemon) => {
             const baseId = basePokemon?.id || currentPokemon.id;
-            
+
             // Cargar evoluciones del Pokémon base
-            this.subEvo = this.pokeApi.getEvolutionsForPokemon(baseId).subscribe({
-              next: (evs) => {
-                this.evolutions = evs.filter(x => x && x.id !== currentPokemon.id);
-                
-                // Después cargar variantes del Pokémon base
-                this.subVar = this.pokeApi.getPokemonVariants(baseId).subscribe({
-                  next: (vars) => {
-                    const evolutionIds = new Set(this.evolutions.map(e => e.id));
-                    this.variants = vars.filter(x => 
-                      x && 
-                      x.id !== currentPokemon.id && // Excluir el Pokémon actual
-                      x.id !== baseId && // Excluir el Pokémon base si estamos en una variante
-                      !evolutionIds.has(x.id) // Excluir evoluciones
-                    );
-                  },
-                  error: (e) => {
-                    console.error('Error loading variants', e);
-                  }
-                });
-              },
-              error: (e) => {
-                console.error('Error loading evolutions', e);
-              }
-            });
+            this.subEvo = this.pokeApi
+              .getEvolutionsForPokemon(baseId)
+              .subscribe({
+                next: (evs) => {
+                  this.evolutions = evs.filter(
+                    (x) => x && x.id !== currentPokemon.id
+                  );
+
+                  // Después cargar variantes del Pokémon base
+                  this.subVar = this.pokeApi
+                    .getPokemonVariants(baseId)
+                    .subscribe({
+                      next: (vars) => {
+                        const evolutionIds = new Set(
+                          this.evolutions.map((e) => e.id)
+                        );
+                        this.variants = vars.filter(
+                          (x) =>
+                            x &&
+                            x.id !== currentPokemon.id && // Excluir el Pokémon actual
+                            x.id !== baseId && // Excluir el Pokémon base si estamos en una variante
+                            !evolutionIds.has(x.id) // Excluir evoluciones
+                        );
+                      },
+                      error: (e) => {
+                        console.error('Error loading variants', e);
+                      },
+                    });
+                },
+                error: (e) => {
+                  console.error('Error loading evolutions', e);
+                },
+              });
           },
           error: (e) => {
             console.error('Error getting base pokemon', e);
-          }
+          },
         });
       },
       error: (e) => {
         console.error('Error loading pokemon detail', e);
         this.loading = false;
-      }
+      },
     });
   }
 
