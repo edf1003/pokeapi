@@ -24,7 +24,11 @@
           />
           <img
             class="shiny-sprite"
-            [src]="pokemon.sprites.front_shiny || pokemon.sprites.front_default || 'assets/no-image.png'"
+            [src]="
+              pokemon.sprites.front_shiny ||
+              pokemon.sprites.front_default ||
+              'assets/no-image.png'
+            "
             [alt]="pokemon.name + ' shiny'"
             width="240"
             height="240"
