@@ -147,4 +147,28 @@ export class PokemonDetailComponent implements OnInit, OnDestroy {
     };
     return descriptions[statName.toLowerCase()] || statName;
   }
+
+  translateType(type: string): string {
+    const translations: { [key: string]: string } = {
+      fire: 'Fuego',
+      water: 'Agua',
+      grass: 'Planta',
+      electric: 'Eléctrico',
+      psychic: 'Psíquico',
+      ice: 'Hielo',
+      dragon: 'Dragón',
+      dark: 'Siniestro',
+      fairy: 'Hada',
+      normal: 'Normal',
+      fighting: 'Lucha',
+      flying: 'Volador',
+      poison: 'Veneno',
+      ground: 'Tierra',
+      rock: 'Roca',
+      bug: 'Bicho',
+      ghost: 'Fantasma',
+      steel: 'Acero',
+    };
+    return translations[type.toLowerCase()] || type;
+  }
 }

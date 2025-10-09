@@ -40,7 +40,6 @@
   gap: 16px;
   align-items: center;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.4);
   border-radius: var(--radius);
   margin-top: 4px;
 }
@@ -334,10 +333,7 @@
   box-shadow: var(--shadow-1);
   transition: transform var(--transition-fast),
     box-shadow var(--transition-fast);
-  border: 1px solid rgba(0, 0, 0, 0.03);
 }
-.pokedex-card:focus-within,
-
 
 /* Nombre grande */
 .pokemon-name {
@@ -519,20 +515,6 @@
     var(--accent),
     color-mix(in srgb, var(--accent) 60%, #ffffff 40%)
   );
-}
-
-/* ------------------------------
-   Focus & accesibilidad
-   ------------------------------ */
-:focus {
-  outline: none;
-}
-a:focus,
-button:focus,
-.type-chip:focus,
-.pokedex-card:focus-within {
-  box-shadow: 0 0 0 4px rgba(31, 111, 235, 0.12);
-  border-radius: 10px;
 }
 
 /* ------------------------------

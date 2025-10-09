@@ -70,7 +70,7 @@
           class="type-chip"
           [ngClass]="'type-' + t.type.name"
         >
-          {{ t.type.name | capitalize }}
+          {{ translateType(t.type.name) | capitalize }}
         </span>
       </div>
     </aside>
@@ -80,7 +80,7 @@
       <div class="pokedex-scroll">
         <!-- Estadísticas -->
         <div class="pokedex-card" *ngIf="pokemon.stats?.length">
-          <h2>Stats</h2>
+          <h2>Estadísticas</h2>
           <div class="stat-list">
             <div class="stat" *ngFor="let s of pokemon.stats">
               <div class="label" [title]="getStatDescription(s.stat.name)">
@@ -98,7 +98,7 @@
         <div class="pokedex-row">
           <!-- Evoluciones -->
           <div class="pokedex-card" *ngIf="evolutions?.length">
-            <h2 style="margin-bottom: 8px">Evolutions</h2>
+            <h2 style="margin-bottom: 8px">Evoluciones</h2>
             <div class="evolution-list">
               <button
                 *ngFor="let evo of evolutions"
@@ -119,7 +119,7 @@
           </div>
           <!-- Sprite shiny -->
           <div class="pokedex-card" *ngIf="pokemon.sprites.front_shiny">
-            <h2 style="margin-bottom: 8px">Shiny Form</h2>
+            <h2 style="margin-bottom: 8px">Forma shiny</h2>
             <div class="pokedex-sprite" style="height: 80px">
               <img
                 [src]="pokemon.sprites.front_shiny"
@@ -134,7 +134,7 @@
         <div class="pokedex-row">
           <!-- Habilidades -->
           <div class="pokedex-card" *ngIf="pokemon.abilities?.length">
-            <h2 style="margin-bottom: 8px">Abilities</h2>
+            <h2 style="margin-bottom: 8px">Habilidades</h2>
             <div class="ability-list">
               <div
                 class="ability"
@@ -150,7 +150,7 @@
           </div>
           <!-- Movimientos -->
           <div class="pokedex-card" *ngIf="pokemon.moves?.length">
-            <h2 style="margin-bottom: 8px">Notable Moves</h2>
+            <h2 style="margin-bottom: 8px">Movimientos importantes</h2>
             <div class="ability-list">
               <div
                 class="ability"
