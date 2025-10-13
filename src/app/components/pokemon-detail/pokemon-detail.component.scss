@@ -207,15 +207,15 @@
     grid-template-rows: 400px 1fr;
     height: calc(100vh - 2 * 12px);
   }
-  
+
   .pokedex-side {
     padding: 16px;
     gap: 12px;
   }
-  
+
   .pokedex-sprite {
     margin-top: 10px;
-    
+
     .pokemon-image-container {
       width: 200px;
       height: 200px;
@@ -481,7 +481,7 @@
   .pokedex-frame {
     grid-template-rows: 380px 1fr;
   }
-  
+
   .pokedex-sprite {
     .pokemon-image-container {
       width: 180px;
@@ -495,33 +495,33 @@
   .pokedex-frame {
     grid-template-rows: 350px 1fr;
   }
-  
+
   .pokedex-side {
     padding: 12px;
     gap: 8px;
   }
-  
+
   .pokedex-content {
     padding: 18px;
   }
-  
+
   .pokedex-side .brand .title {
     font-size: 1rem;
   }
-  
+
   .pokedex-sprite {
     margin-top: 5px;
-    
+
     .pokemon-image-container {
       width: 160px;
       height: 160px;
     }
   }
-  
+
   .pokemon-name h1 {
     font-size: 1.4rem;
   }
-  
+
   .type-chip {
     font-size: 0.75rem;
     padding: 4px 8px;
